@@ -33,17 +33,16 @@ public class FragmentList extends Fragment {
 
     private NotesAdapter mAdapter;
     private ListView mList;
-    private List<Note> mNotes;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_list, container, false);
-        mNotes = new ArrayList<>();
+        QuickNoteApp.get().mNotes = new ArrayList<>();
         List<Note> notes = FakeData.generateMany(50);
-        mNotes.addAll(notes);
+        QuickNoteApp.get().mNotes.addAll(notes);
         mList = (ListView)v.findViewById(R.id.list);
-        mAdapter = new NotesAdapter(getActivity(),mNotes);
+        mAdapter = new NotesAdapter(getActivity(),QuickNoteApp.get().mNotes);
         mList.setOnItemClickListener(mAdapter);
         mList.setOnItemLongClickListener(mAdapter);
         mList.setAdapter(mAdapter);
@@ -51,7 +50,7 @@ public class FragmentList extends Fragment {
     }
 
     public void addNote(Note note) {
-        mNotes.add(0, note);
+        QuickNoteApp.get().mNotes.add(0, note);
         mAdapter.notifyDataSetChanged();
     }
 
@@ -132,7 +131,7 @@ public class FragmentList extends Fragment {
     }
 
     private void deleteItem(int position) {
-        mNotes.remove(position);
+        QuickNoteApp.get().mNotes.remove(position);
         mAdapter.notifyDataSetChanged();
     }
 
