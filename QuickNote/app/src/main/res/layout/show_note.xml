@@ -4,13 +4,29 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/showNote_title"
+        android:layout_gravity="left|center_horizontal"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/showNote_date"
+        android:layout_gravity="right"
+        android:textStyle="italic" />
+
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scrollbars="vertical">
 
         <TextView
-            android:id="@+id/showNote"
+            android:id="@+id/showNote_content"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:scrollbars="horizontal|vertical"

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">QuickNote</string>
+    <string name="button_delete">Delete</string>
 </resources>

@@ -15,10 +15,15 @@ public class ShowResult extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.show_note);
-        TextView textView=(TextView) findViewById(R.id.showNote);
+        TextView content=(TextView) findViewById(R.id.showNote_content);
+        TextView date=(TextView) findViewById(R.id.showNote_date);
+        TextView title=(TextView) findViewById(R.id.showNote_title);
+
         Intent intent = getIntent();
-        String param= intent.getStringExtra("SHOW_NOTE");
-        textView.setText(param);
+        String[] params= intent.getStringArrayExtra("SHOW_NOTE");
+        title.setText(params[0]);
+        date.setText(params[1]);
+        content.setText(params[2]);
 
     }
 }

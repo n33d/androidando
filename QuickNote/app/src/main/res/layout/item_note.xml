@@ -17,5 +17,16 @@
         android:layout_marginTop="4dp"
         android:gravity="right"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginRight="2dp" />
+
+   <!-- <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_delete"
+        android:id="@+id/button_delete"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_gravity="right"
+        android:layout_margin="3dp" /> -->
+
 </LinearLayout>

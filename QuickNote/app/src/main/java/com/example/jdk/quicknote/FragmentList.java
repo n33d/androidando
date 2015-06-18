@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,8 +86,13 @@ public class FragmentList extends Fragment {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Log.i("tag","onItemClick()");
             Note note = getItem(position);
-            showItemContent(note.content);
+            String[] strings=new String[3];
+            strings[0]=note.title;
+            strings[1]=note.date.toString();
+            strings[2]=note.content;
+            showItemContent(strings);
         }
 
         private class ViewHolder {
@@ -96,6 +102,7 @@ public class FragmentList extends Fragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+            Log.i("tag","getView()");
             ViewHolder h;
             if (convertView == null) {
                 convertView = mInflater.inflate(R.layout.item_note, parent, false);
@@ -114,7 +121,8 @@ public class FragmentList extends Fragment {
             return convertView;
         }
     }
-    private void showItemContent(String content){
+    private void showItemContent(String[] content){
+        Log.i("tag","showItemContent()");
         Intent intent = new Intent(getActivity(),ShowResult.class);
         intent.putExtra("SHOW_NOTE", content);
         this.startActivity(intent);
