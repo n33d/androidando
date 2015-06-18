@@ -1,5 +1,6 @@
 package com.example.jdk.quicknote;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,13 +38,14 @@ public class FragmentList extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_list,container,false);
+        View v = inflater.inflate(R.layout.fragment_list, container, false);
         mNotes = new ArrayList<>();
         List<Note> notes = FakeData.generateMany(50);
         mNotes.addAll(notes);
         mList = (ListView)v.findViewById(R.id.list);
         mAdapter = new NotesAdapter(getActivity(),mNotes);
         mList.setOnItemClickListener(mAdapter);
+        mList.setOnItemLongClickListener(mAdapter);
         mList.setAdapter(mAdapter);
         return v;
     }
@@ -55,7 +57,7 @@ public class FragmentList extends Fragment {
 
 
     private class NotesAdapter extends BaseAdapter
-            implements AdapterView.OnItemClickListener {
+            implements AdapterView.OnItemClickListener ,AdapterView.OnItemLongClickListener{
 
         private final List<Note> mAdapterNotes;
         private Context mContext;
@@ -95,6 +97,13 @@ public class FragmentList extends Fragment {
             showItemContent(strings);
         }
 
+        @Override
+        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            Log.i("tag","onItemLongClick");
+            deleteItem(position);
+            return true;
+        }
+
         private class ViewHolder {
             TextView title;
             TextView date;
@@ -121,6 +130,12 @@ public class FragmentList extends Fragment {
             return convertView;
         }
     }
+
+    private void deleteItem(int position) {
+        mNotes.remove(position);
+        mAdapter.notifyDataSetChanged();
+    }
+
     private void showItemContent(String[] content){
         Log.i("tag","showItemContent()");
         Intent intent = new Intent(getActivity(),ShowResult.class);
