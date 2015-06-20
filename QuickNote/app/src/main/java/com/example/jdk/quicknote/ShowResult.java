@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import me.aktor.quicknote.R;
-
 /**
  * Created by jdk on 13/06/15.
  */

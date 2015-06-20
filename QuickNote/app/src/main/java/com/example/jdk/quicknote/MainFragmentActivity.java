@@ -3,26 +3,27 @@ package com.example.jdk.quicknote;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 
-import com.example.jdk.quicknote.data.data.Note;
-
-import me.aktor.quicknote.R;
+import com.example.jdk.quicknote.data.Note;
 
 
 public class MainFragmentActivity extends FragmentActivity implements OnSaveNoteListener {
 
-    private FragmentCreateNote mCreate;
-    private FragmentList mList;
+    public static final int TASK_ADD = 1;
+//    private FragmentCreateNote mCreate;
+//    private FragmentList mList;
+    private AddNoteTask mTask;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_fragments);
 
-        FragmentManager fm = getSupportFragmentManager();
+        mTask = AddNoteTask.newInstance(this);
+        /*FragmentManager fm = getSupportFragmentManager();
         mCreate =(FragmentCreateNote) fm.findFragmentById(R.id.FragmentInsert);
-        mList = (FragmentList)fm.findFragmentById(R.id.FragmentList);
+        mList = (FragmentList)fm.findFragmentById(R.id.FragmentList);*/
 
     }
 
@@ -36,7 +37,8 @@ public class MainFragmentActivity extends FragmentActivity implements OnSaveNote
     }
 
     public void addNote(Note note){
-        mList.addNote(note);
+        mTask.addNote(TASK_ADD,note);
+//        mList.addNote(note);
     }
 
     @Override

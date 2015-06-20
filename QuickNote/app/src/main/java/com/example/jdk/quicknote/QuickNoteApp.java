@@ -2,11 +2,9 @@ package com.example.jdk.quicknote;
 
 import android.app.Application;
 
-import com.example.jdk.quicknote.data.data.Note;
+import com.example.jdk.quicknote.data.Note;
 
 import java.util.List;
-
-import me.aktor.quicknote.R;
 
 /**
  * Created by Andrea Tortorella on 6/13/15.

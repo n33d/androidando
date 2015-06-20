@@ -8,11 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.example.jdk.quicknote.data.data.Note;
+import com.example.jdk.quicknote.data.Note;
 
 import java.util.Date;
-
-import me.aktor.quicknote.R;
 
 
 /**

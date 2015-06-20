@@ -1,6 +1,6 @@
 package com.example.jdk.quicknote;
 
-import com.example.jdk.quicknote.data.data.Note;
+import com.example.jdk.quicknote.data.Note;
 
 /**
  * Created by jdk on 13/06/15.
