@@ -7,12 +7,12 @@ import android.support.v4.app.FragmentActivity;
 import com.example.jdk.quicknote.data.Note;
 
 
-public class MainFragmentActivity extends FragmentActivity implements OnSaveNoteListener {
+public class MainFragmentActivity extends FragmentActivity implements OnSaveNoteListener,OnDeleteListener {
 
     public static final int TASK_ADD = 1;
 //    private FragmentCreateNote mCreate;
 //    private FragmentList mList;
-    private AddNoteTask mTask;
+    private NoteTask mTask;
 
 
     @Override
@@ -20,7 +20,7 @@ public class MainFragmentActivity extends FragmentActivity implements OnSaveNote
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_fragments);
 
-        mTask = AddNoteTask.newInstance(this);
+        mTask = NoteTask.newInstance(this);
         /*FragmentManager fm = getSupportFragmentManager();
         mCreate =(FragmentCreateNote) fm.findFragmentById(R.id.FragmentInsert);
         mList = (FragmentList)fm.findFragmentById(R.id.FragmentList);*/
@@ -34,15 +34,28 @@ public class MainFragmentActivity extends FragmentActivity implements OnSaveNote
         if (fragment instanceof FragmentCreateNote) {
             ((FragmentCreateNote) fragment).setOnSaveNoteListener(this);
         }
+        if (fragment instanceof FragmentList) {
+            ((FragmentList) fragment).setOnDeleteListener(this);
+        }
     }
 
     public void addNote(Note note){
-        mTask.addNote(TASK_ADD,note);
+        mTask.addNote(TASK_ADD, note);
 //        mList.addNote(note);
     }
 
     @Override
     public void onSaveNote(Note note) {
         addNote(note);
+    }
+
+    @Override
+    public void onDeleteNote(long noteId) {
+        deeleteNote(noteId);
+    }
+
+    private void deeleteNote(long noteId) {
+        mTask.deleteNote(noteId);
+
     }
 }

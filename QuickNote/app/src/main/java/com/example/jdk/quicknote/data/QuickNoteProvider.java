@@ -17,6 +17,7 @@ public class QuickNoteProvider extends ContentProvider {
 
     private static final int ALL_NOTES = 1;
     private static final int ONE_NOTE = 2;
+    private static final int DELETE_ONE_NOTE = 3;
 
     private NoteDbOpenHelper mHelper;
     private static final UriMatcher MATCHER = createMatcher();
@@ -25,6 +26,7 @@ public class QuickNoteProvider extends ContentProvider {
         UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         uriMatcher.addURI(Contract.AUTHORITY, Contract.Note.PATH,ALL_NOTES);
         uriMatcher.addURI(Contract.AUTHORITY,Contract.Note.PATH+"/#",ONE_NOTE);
+        uriMatcher.addURI(Contract.AUTHORITY,Contract.Note.PATH+"/delete/#",DELETE_ONE_NOTE);
         return uriMatcher;
     }
 
@@ -45,7 +47,7 @@ public class QuickNoteProvider extends ContentProvider {
                 Log.i("switch","one note uri match");
 
             }break;
-            default:Log.i("switch","no uri match");
+            case DELETE_ONE_NOTE:Dao.deleteNote(mHelper, ContentUris.parseId(uri));break;
         }
         if(cursor != null){
             cursor.setNotificationUri(
@@ -88,7 +90,9 @@ public class QuickNoteProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        return 0;
+        int result=Dao.deleteNote(mHelper,Long.valueOf(selectionArgs[0]));
+        getContext().getContentResolver().notifyChange(Contract.Note.CONTENT_URI, null);
+        return result;
     }
 
     @Override

@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.example.jdk.quicknote.data.Contract;
 import com.example.jdk.quicknote.data.Contract.Note;
 
 import java.util.Date;

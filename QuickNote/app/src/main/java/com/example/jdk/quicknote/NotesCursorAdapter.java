@@ -12,12 +12,14 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.example.jdk.quicknote.data.Contract;
+import com.example.jdk.quicknote.data.Note;
 
 /**
  * Created by Andrea Tortorella on 6/20/15.
  */
 class NotesCursorAdapter extends CursorAdapter implements AdapterView.OnItemClickListener,AdapterView.OnItemLongClickListener{
 
+    private OnDeleteListener deleteListener;
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Cursor note = (Cursor) getItem(position);
@@ -29,7 +31,12 @@ class NotesCursorAdapter extends CursorAdapter implements AdapterView.OnItemClic
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        return false;
+        Cursor note = (Cursor) getItem(position);
+        long noteId=note.getLong(
+                note.getColumnIndexOrThrow(Contract.Note._ID)
+        );
+        deleteItemContent(noteId);
+        return true;
     }
 
     private static class ViewHolder {
@@ -52,10 +59,11 @@ class NotesCursorAdapter extends CursorAdapter implements AdapterView.OnItemClic
 
     private final LayoutInflater mInflater;
 
-    public NotesCursorAdapter(Context context) {
+    public NotesCursorAdapter(Context context,OnDeleteListener deleteListener) {
         super(context, /*Cursor*/null,
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         mInflater = LayoutInflater.from(context);
+        this.deleteListener=deleteListener;
     }
 
     @Override
@@ -81,5 +89,10 @@ class NotesCursorAdapter extends CursorAdapter implements AdapterView.OnItemClic
         intent.putExtra("SHOW_NOTE", content);
         mContext.startActivity(intent);
         //this.startActivityForResult(intent, 1);
+    }
+
+    private void deleteItemContent(long noteId) {
+        //NoteTask.newInstance(mContext).deleteNote(noteId);
+        deleteListener.onDeleteNote(noteId);
     }
 }

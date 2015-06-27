@@ -22,6 +22,7 @@ public class FragmentList extends Fragment {
 
     private NotesCursorAdapter mAdapter;
     private ListView mList;
+    private OnDeleteListener onDeleteListener;
 
     private final LoaderManager.LoaderCallbacks<Cursor> callbacks =
             new LoaderManager.LoaderCallbacks<Cursor>() {
@@ -56,7 +57,7 @@ public class FragmentList extends Fragment {
         QuickNoteApp.get().mNotes.addAll(notes);*/
         mList = (ListView)v.findViewById(R.id.list);
 //        mAdapter = new NotesAdapter(getActivity(),QuickNoteApp.get().mNotes);
-        mAdapter = new NotesCursorAdapter(getActivity());
+        mAdapter = new NotesCursorAdapter(getActivity(),onDeleteListener);
         mList.setOnItemClickListener(mAdapter);
         mList.setOnItemLongClickListener(mAdapter);
         mList.setAdapter(mAdapter);
@@ -72,6 +73,10 @@ public class FragmentList extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getLoaderManager().initLoader(/*id*/R.id.LOAD_NOTES,/*bundle*/null, callbacks);
+    }
+
+    public void setOnDeleteListener(MainFragmentActivity onDeleteListener) {
+        this.onDeleteListener = onDeleteListener;
     }
 
     /*private class NotesAdapter extends BaseAdapter

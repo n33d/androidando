@@ -25,4 +25,9 @@ public class Dao {
         long id = db.insert(Contract.Note.PATH, null, values);
         return id;
     }
+
+    public static int deleteNote(NoteDbOpenHelper mHelper, long id) {
+        SQLiteDatabase db = mHelper.getWritableDatabase();
+        return db.delete(Contract.Note.PATH,Contract.Note._ID + " = " + id,null);
+    }
 }
