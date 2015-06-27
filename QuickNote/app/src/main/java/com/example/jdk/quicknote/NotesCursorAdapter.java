@@ -21,17 +21,10 @@ class NotesCursorAdapter extends CursorAdapter implements AdapterView.OnItemClic
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Cursor note = (Cursor) getItem(position);
-        String[] params=new String[3];
-        params[0]=note.getString(
-                note.getColumnIndexOrThrow(Contract.Note.TITLE)
+        long noteId=note.getLong(
+                note.getColumnIndexOrThrow(Contract.Note._ID)
         );
-        params[1]=note.getString(
-                note.getColumnIndexOrThrow(Contract.Note.DATE)
-        );
-        params[2]=note.getString(
-                note.getColumnIndexOrThrow(Contract.Note.CONTENT)
-        );
-        showItemContent(params);
+        showItemContent(noteId);
     }
 
     @Override
@@ -82,7 +75,7 @@ class NotesCursorAdapter extends CursorAdapter implements AdapterView.OnItemClic
         holder.bind(cursor);
     }
 
-    private void showItemContent(String[] content){
+    private void showItemContent(long content){
         Log.i("tag", "showItemContent()");
         Intent intent = new Intent(mContext,ShowResult.class);
         intent.putExtra("SHOW_NOTE", content);

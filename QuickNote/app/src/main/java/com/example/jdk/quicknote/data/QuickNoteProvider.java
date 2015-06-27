@@ -7,6 +7,7 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
+import android.util.Log;
 
 /**
  * Created by jdk on 20/06/15.
@@ -39,7 +40,12 @@ public class QuickNoteProvider extends ContentProvider {
         Cursor cursor=null;
         switch (match){
             case ALL_NOTES : cursor= Dao.getAllNotes(mHelper,selection,sortOrder);break;
-            case ONE_NOTE : cursor = Dao.getNote(mHelper, ContentUris.parseId(uri));break;
+            case ONE_NOTE : {
+                cursor = Dao.getNote(mHelper, ContentUris.parseId(uri));
+                Log.i("switch","one note uri match");
+
+            }break;
+            default:Log.i("switch","no uri match");
         }
         if(cursor != null){
             cursor.setNotificationUri(
